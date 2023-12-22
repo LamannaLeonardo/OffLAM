@@ -24,7 +24,7 @@ The following instructions have been tested on macOS Ventura 13.3.1
 
 4. Install dependencies:
 ```
-pip install numpy pandas
+pip install numpy pandas matplotlib openpyxl
 ```
 
 7. Download the validator [VAL](https://github.com/KCL-Planning/VAL) binary files into the directory "Util/Grounding", the files already provided in this repository work with macOS.
