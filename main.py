@@ -4,7 +4,9 @@ from shutil import copyfile
 from timeit import default_timer
 
 import Configuration
-from OLAM.Learner import *
+from OffLAM.Action import Action
+from OffLAM.ActionModel import ActionModel
+from OffLAM.Learner import *
 from Util.generate_dataframe import save_dataframe
 from Util.plot_results import plot_overall_prec_recall
 

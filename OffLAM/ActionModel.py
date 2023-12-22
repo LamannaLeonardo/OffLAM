@@ -4,7 +4,7 @@ import re
 import warnings
 from collections import defaultdict
 
-from OLAM.Operator import Operator
+from OffLAM.Operator import Operator
 
 
 class ActionModel:

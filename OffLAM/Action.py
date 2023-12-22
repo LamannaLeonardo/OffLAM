@@ -1,4 +1,4 @@
-from OLAM.Operator import Operator
+from OffLAM.Operator import Operator
 
 
 class Action(Operator):

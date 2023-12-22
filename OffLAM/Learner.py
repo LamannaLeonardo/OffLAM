@@ -7,11 +7,11 @@ from collections import defaultdict
 
 import numpy as np
 import pandas as pd
-from OLAM.Action import Action
-from OLAM.ActionModel import ActionModel
-from OLAM.Observation import Observation
-from OLAM.Operator import Operator
-from OLAM.Trace import Trace
+from OffLAM.Action import Action
+from OffLAM.ActionModel import ActionModel
+from OffLAM.Observation import Observation
+from OffLAM.Operator import Operator
+from OffLAM.Trace import Trace
 from Util import metrics
 from Util.PddlParser import PddlParser
 from Util.util import powerset

@@ -1,6 +1,6 @@
 from collections import defaultdict
 import numpy as np
-from OLAM.Action import Action
+from OffLAM.Action import Action
 
 
 class Trace:
