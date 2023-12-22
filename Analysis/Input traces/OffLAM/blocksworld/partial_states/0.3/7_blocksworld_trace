@@ -1,0 +1,45 @@
+(observation
+
+(:state (holding b1) (on b3 b6) (not (clear b7)) (not (holding b2)) (not (holding b5)) (not (on b1 b4)) (not (on b1 b5)) (not (on b1 b7)) (not (on b2 b4)) (not (on b2 b5)) (not (on b2 b7)) (not (on b3 b4)) (not (on b4 b5)) (not (on b5 b6)) (not (on b5 b7)) (not (on b6 b2)) (not (on b6 b3)) (not (on b6 b6)) (not (on b7 b4)) (not (on b7 b7)) (not (ontable b1)))
+
+(:action (stack b1 b5))
+
+(:state (handempty) (on b4 b7) (ontable b2) (ontable b6) (not (clear b6)) (not (holding b3)) (not (holding b6)) (not (holding b7)) (not (on b1 b1)) (not (on b1 b3)) (not (on b1 b4)) (not (on b2 b6)) (not (on b3 b3)) (not (on b3 b5)) (not (on b6 b2)) (not (on b6 b4)) (not (on b7 b6)) (not (ontable b3)) (not (ontable b4)))
+
+(:action (unstack b4 b7))
+
+(:state (clear b3) (on b1 b5) (not (handempty)) (not (holding b1)) (not (holding b5)) (not (holding b6)) (not (on b1 b1)) (not (on b1 b3)) (not (on b1 b6)) (not (on b2 b1)) (not (on b2 b2)) (not (on b3 b1)) (not (on b3 b2)) (not (on b3 b3)) (not (on b3 b7)) (not (on b4 b3)) (not (on b5 b2)) (not (on b5 b3)) (not (on b5 b4)) (not (on b5 b5)) (not (on b6 b3)) (not (on b6 b6)) (not (on b7 b2)) (not (on b7 b4)) (not (on b7 b5)) (not (ontable b3)))
+
+(:action (put-down b4))
+
+(:state (on b1 b5) (ontable b2) (not (clear b6)) (not (holding b5)) (not (on b1 b1)) (not (on b1 b3)) (not (on b2 b2)) (not (on b2 b4)) (not (on b3 b3)) (not (on b3 b7)) (not (on b4 b2)) (not (on b4 b4)) (not (on b5 b1)) (not (on b5 b3)) (not (on b6 b1)) (not (on b6 b2)) (not (on b6 b4)) (not (on b7 b4)) (not (on b7 b5)) (not (on b7 b6)))
+
+(:action (pick-up b7))
+
+(:state (clear b1) (clear b2) (not (clear b6)) (not (on b1 b1)) (not (on b2 b7)) (not (on b4 b1)) (not (on b5 b1)) (not (on b5 b7)) (not (on b6 b6)) (not (on b7 b2)) (not (ontable b3)))
+
+(:action (stack b7 b3))
+
+(:state (clear b1) (clear b2) (ontable b2) (not (clear b3)) (not (holding b4)) (not (holding b5)) (not (holding b7)) (not (on b1 b4)) (not (on b2 b1)) (not (on b2 b5)) (not (on b3 b1)) (not (on b5 b7)) (not (on b7 b1)) (not (on b7 b5)) (not (ontable b7)))
+
+(:action (pick-up b2))
+
+(:state (clear b1) (ontable b4) (not (clear b2)) (not (clear b5)) (not (clear b6)) (not (handempty)) (not (on b2 b7)) (not (on b3 b1)) (not (on b3 b3)) (not (on b3 b5)) (not (on b4 b1)) (not (on b4 b3)) (not (on b4 b5)) (not (on b4 b6)) (not (on b5 b1)) (not (on b5 b2)) (not (on b5 b4)) (not (on b5 b6)) (not (on b5 b7)) (not (on b6 b1)) (not (on b6 b3)) (not (on b7 b7)) (not (ontable b3)))
+
+(:action (stack b2 b4))
+
+(:state (clear b1) (handempty) (on b3 b6) (on b7 b3) (ontable b4) (ontable b5) (not (clear b3)) (not (holding b2)) (not (holding b4)) (not (on b1 b2)) (not (on b1 b4)) (not (on b1 b6)) (not (on b1 b7)) (not (on b2 b2)) (not (on b2 b3)) (not (on b3 b3)) (not (on b3 b5)) (not (on b4 b1)) (not (on b4 b4)) (not (on b4 b6)) (not (on b5 b4)) (not (on b6 b1)))
+
+(:action (unstack b1 b5))
+
+(:state (clear b2) (clear b5) (clear b7) (on b2 b4) (not (clear b3)) (not (clear b4)) (not (holding b2)) (not (holding b4)) (not (holding b5)) (not (holding b7)) (not (on b1 b3)) (not (on b1 b4)) (not (on b1 b5)) (not (on b2 b2)) (not (on b2 b3)) (not (on b3 b2)) (not (on b3 b4)) (not (on b4 b1)) (not (on b4 b4)) (not (on b4 b6)) (not (on b5 b1)) (not (on b5 b2)) (not (on b5 b3)) (not (on b5 b6)) (not (on b6 b2)) (not (on b6 b3)) (not (on b6 b4)) (not (on b6 b6)) (not (on b7 b5)))
+
+(:action (put-down b1))
+
+(:state (ontable b1) (ontable b6) (not (clear b3)) (not (holding b1)) (not (holding b7)) (not (on b1 b3)) (not (on b1 b6)) (not (on b1 b7)) (not (on b2 b1)) (not (on b2 b2)) (not (on b2 b5)) (not (on b4 b4)) (not (on b5 b1)) (not (on b5 b6)) (not (on b6 b1)) (not (on b6 b3)) (not (on b6 b5)) (not (on b7 b2)) (not (on b7 b5)) (not (on b7 b6)) (not (ontable b3)))
+
+(:action (pick-up b5))
+
+(:state (on b3 b6) (ontable b1) (ontable b4) (ontable b6) (not (clear b5)) (not (clear b6)) (not (on b1 b4)) (not (on b1 b5)) (not (on b1 b7)) (not (on b2 b2)) (not (on b2 b3)) (not (on b2 b6)) (not (on b3 b2)) (not (on b3 b5)) (not (on b4 b7)) (not (on b5 b2)) (not (on b5 b5)) (not (on b5 b7)) (not (on b6 b2)) (not (on b7 b1)) (not (on b7 b7)) (not (ontable b3)) (not (ontable b7)))
+
+)

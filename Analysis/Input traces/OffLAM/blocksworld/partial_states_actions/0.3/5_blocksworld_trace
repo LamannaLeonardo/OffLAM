@@ -1,0 +1,33 @@
+(observation
+
+(:state (clear b2) (clear b5) (clear b6) (ontable b6) (not (clear b4)) (not (holding b3)) (not (holding b4)) (not (holding b6)) (not (on b2 b1)) (not (on b2 b2)) (not (on b2 b6)) (not (on b3 b1)) (not (on b3 b3)) (not (on b4 b3)) (not (on b4 b4)) (not (on b4 b5)) (not (on b5 b5)) (not (on b6 b3)))
+
+(:state (clear b6) (holding b3) (ontable b1) (ontable b4) (ontable b5) (ontable b6) (not (holding b2)) (not (holding b4)) (not (holding b5)) (not (holding b6)) (not (on b1 b5)) (not (on b1 b6)) (not (on b2 b1)) (not (on b2 b3)) (not (on b2 b6)) (not (on b4 b1)) (not (on b5 b2)) (not (on b5 b3)) (not (on b5 b5)) (not (on b6 b1)) (not (on b6 b2)) (not (on b6 b4)))
+
+(:state (clear b3) (not (holding b1)) (not (holding b2)) (not (holding b6)) (not (on b1 b6)) (not (on b2 b2)) (not (on b3 b3)) (not (on b3 b6)) (not (on b4 b1)) (not (on b4 b5)) (not (on b5 b4)) (not (on b5 b5)) (not (on b6 b1)) (not (on b6 b2)) (not (on b6 b5)))
+
+(:state (on b2 b4) (ontable b1) (ontable b6) (not (clear b4)) (not (handempty)) (not (holding b1)) (not (holding b2)) (not (holding b3)) (not (holding b6)) (not (on b2 b1)) (not (on b3 b6)) (not (on b4 b2)) (not (on b4 b4)) (not (on b4 b5)) (not (on b5 b2)) (not (on b5 b5)) (not (on b6 b2)) (not (on b6 b6)) (not (ontable b3)))
+
+(:state (clear b3) (not (clear b2)) (not (holding b4)) (not (holding b6)) (not (on b1 b1)) (not (on b1 b5)) (not (on b1 b6)) (not (on b2 b1)) (not (on b2 b6)) (not (on b3 b2)) (not (on b3 b5)) (not (on b4 b4)) (not (on b5 b6)) (not (on b6 b6)) (not (ontable b3)))
+
+(:action (unstack b3 b1))
+
+(:state (not (clear b2)) (not (clear b4)) (not (holding b2)) (not (holding b6)) (not (on b2 b2)) (not (on b3 b2)) (not (on b3 b6)) (not (on b4 b4)) (not (on b5 b3)) (not (ontable b3)))
+
+(:action (put-down b3))
+
+(:state (clear b6) (on b5 b2) (ontable b3) (not (holding b1)) (not (holding b2)) (not (on b1 b1)) (not (on b1 b3)) (not (on b1 b4)) (not (on b1 b6)) (not (on b2 b3)) (not (on b4 b1)) (not (on b4 b2)) (not (on b4 b3)) (not (on b5 b5)) (not (on b5 b6)) (not (on b6 b2)) (not (on b6 b4)))
+
+(:state (on b2 b4) (ontable b3) (ontable b4) (not (clear b4)) (not (handempty)) (not (holding b4)) (not (holding b6)) (not (on b1 b4)) (not (on b2 b5)) (not (on b2 b6)) (not (on b3 b1)) (not (on b3 b2)) (not (on b3 b6)) (not (on b4 b1)) (not (on b4 b4)) (not (on b4 b6)) (not (on b5 b1)) (not (on b5 b3)) (not (on b5 b4)) (not (on b6 b1)))
+
+(:action (stack b1 b5))
+
+(:state (clear b6) (handempty) (ontable b4) (ontable b6) (not (clear b5)) (not (holding b1)) (not (on b1 b1)) (not (on b1 b3)) (not (on b1 b4)) (not (on b1 b6)) (not (on b3 b2)) (not (on b3 b3)) (not (on b3 b4)) (not (on b4 b2)) (not (on b6 b6)))
+
+(:state (on b2 b4) (ontable b6) (not (on b1 b4)) (not (on b2 b6)) (not (on b3 b3)) (not (on b3 b4)) (not (on b4 b4)) (not (on b4 b6)) (not (on b6 b1)) (not (on b6 b5)) (not (ontable b1)))
+
+(:action (stack b3 b1))
+
+(:state (handempty) (on b3 b1) (ontable b4) (ontable b6) (not (clear b4)) (not (holding b3)) (not (holding b4)) (not (holding b5)) (not (on b1 b6)) (not (on b2 b5)) (not (on b3 b5)) (not (on b4 b2)) (not (on b4 b3)) (not (on b5 b6)) (not (on b6 b4)) (not (on b6 b5)) (not (ontable b1)) (not (ontable b2)))
+
+)

@@ -1,0 +1,25 @@
+(observation
+
+(:state (not (on b1 b3)) (not (on b1 b5)) (not (on b3 b3)))
+
+(:state (not (on b1 b2)) (not (on b2 b2)))
+
+(:state (not (clear b1)) (not (on b2 b4)))
+
+(:state (ontable b1) (not (on b2 b1)) (not (on b3 b2)) (not (on b4 b2)) (not (on b5 b2)))
+
+(:state (clear b2) (ontable b1) (not (holding b3)) (not (holding b4)) (not (on b2 b2)) (not (on b3 b5)) (not (on b4 b3)) (not (ontable b3)))
+
+(:state (clear b4) (not (on b1 b1)) (not (on b1 b3)) (not (on b3 b2)))
+
+(:state (clear b5) (ontable b5) (not (on b1 b1)) (not (on b2 b2)) (not (on b4 b1)))
+
+(:state (ontable b1) (not (holding b5)) (not (on b5 b2)))
+
+(:state (clear b4) (clear b5) (not (on b3 b5)) (not (ontable b4)))
+
+(:state (ontable b2) (not (holding b4)) (not (on b1 b4)) (not (on b2 b2)) (not (on b5 b5)))
+
+(:state (not (holding b5)) (not (on b2 b2)) (not (on b4 b2)) (not (on b4 b4)) (not (ontable b4)))
+
+)
