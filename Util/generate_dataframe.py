@@ -51,7 +51,9 @@ def save_dataframe(num_traces, EXP, run=0):
                     'Overall recall': overall_recall,
                     'Overall precision': overall_precision
                 }
-                df = pd.concat([df, pd.DataFrame([evaluate])], ignore_index=True)
+
+                evaluate = pd.DataFrame([evaluate])
+                df = pd.concat([df, evaluate.astype(df.dtypes)], ignore_index=True)
 
     writer = pd.ExcelWriter(os.path.join(RESULTS_DIR, f"run{run}_offlam_results.xlsx"))
     df.to_excel(writer, index=False, float_format="%0.2f")
