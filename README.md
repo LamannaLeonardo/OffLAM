@@ -36,8 +36,7 @@ pip install numpy pandas matplotlib openpyxl
 ## Execution
 
 ### Running OffLAM
-The OffLAM algorithm can be run for learning from traces with partially observable states, partially observable actions, and partially observable states and actions.  
-The experiment can be changed by setting the "EXP" variable in "Configuration.py".
+The OffLAM algorithm can be run for learning from traces with partially observable states, partially observable actions, and partially observable states and actions. The experiment can be changed by setting the "EXP" variable in "Configuration.py".
 
 e.g. to run OffLAM on the task of learning from traces with partial states, set `EXP = PARTIAL_STATE_EXP` in "Configuration.py"
 
@@ -47,7 +46,7 @@ When you execute OffLAM, a new directory with all logs and results is created in
 
 
 ## OffLAM traces
-For every domain and observability degree considered in the paper, the set of traces generated for evaluating OffLAM can be downloaded from this [link](https://drive.google.com/file/d/1kPkH07RR9TJEoMWkwImBYm0irYEj9oLg/view?usp=share_link)
+For every domain and observability degree considered in the paper, the set of traces generated for evaluating OffLAM can be downloaded from this [link](https://drive.google.com/file/d/1kPkH07RR9TJEoMWkwImBYm0irYEj9oLg/view?usp=share_link).  To reproduce the paper results, download the OffLAM traces, unzip them into the directory "Analysis", and run OffLAM.
 
 
 ## License
