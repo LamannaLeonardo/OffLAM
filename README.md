@@ -49,5 +49,10 @@ When you execute OffLAM, a new directory with all logs and results is created in
 For every domain and observability degree considered in the paper, the set of traces generated for evaluating OffLAM can be downloaded from this [link](https://drive.google.com/file/d/1kPkH07RR9TJEoMWkwImBYm0irYEj9oLg/view?usp=share_link).  To reproduce the paper results, download the OffLAM traces, unzip them into the directory `Analysis`, and run OffLAM.
 
 
+## Custom domain learning
+For running OffLAM on a custom domain (e.g. "testworld"), you need to provide an input domain file `Analysis/Benchmarks/testworld.pddl` and a set of input plan traces with one file for each plan trace in the directory `Analysis/Input traces/testworld/$EXP` where the value of `EXP` can be set in `Configuration.py` (default value corresponds to plan traces with partially observable states). The input planning domain must contain at least the predicates, object types, and operator signatures, an example of (empty) input planning domain is `Analysis/Benchmarks/testworld.pddl`. Examples of input plan traces with partial states can be found in the directory `Analysis/Input traces/testworld/partial_states`, notice that OffLAM can learn a planning domain from plan traces of different environments (e.g. it is possible to learn a planning domain from small environments and exploit the learned domain in large environments). 
+
+To run OffLAM on the custom domain "testworld" run the command `python test.py -d testworld`
+
 ## License
 This project is licensed under the MIT License - see the [LICENSE](/License) file for details.
