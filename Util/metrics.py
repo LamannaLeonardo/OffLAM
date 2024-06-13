@@ -265,15 +265,15 @@ def action_model_eff_neg_predictions(evaluated_model):
         # Store learned action model effects
 
         all_action_schema = " ".join(learned_action_model)[" ".join(learned_action_model).index(":action "):]
-        # action_schema = re.findall("{}(.*?):effect".format(operator), " ".join(data))[0]
-        action_schema = [el.strip() for el in re.findall("(?:(?!:action).)*", all_action_schema) if el.strip() != ""]
+        # action_schema = re.findall(r"{}(.*?):effect".format(operator), " ".join(data))[0]
+        action_schema = [el.strip() for el in re.findall(r"(?:(?!:action).)*", all_action_schema) if el.strip() != ""]
 
         for schema in action_schema:
             op_name = schema.split()[1]
-            all_eff = re.findall(":effect.*", schema)[0].strip()[:-1].strip()
+            all_eff = re.findall(r":effect.*", schema)[0].strip()[:-1].strip()
 
-            cur_neg_effect = re.findall("\(not[^)]*\)\)", all_eff)
-            cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+            cur_neg_effect = re.findall(r"\(not[^)]*\)\)", all_eff)
+            cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
                               if el not in [el.replace("(not","").strip()[:-1] for el in cur_neg_effect]
                               and "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
@@ -288,19 +288,19 @@ def action_model_eff_neg_predictions(evaluated_model):
             # Store real action model effects
 
             all_action_schema = " ".join(real_action_model)[" ".join(real_action_model).index(":action "):]
-            # action_schema = re.findall("{}(.*?):effect".format(operator), " ".join(data))[0]
-            action_schema = [el.strip() for el in re.findall("(?:(?!:action).)*", all_action_schema) if
+            # action_schema = re.findall(r"{}(.*?):effect".format(operator), " ".join(data))[0]
+            action_schema = [el.strip() for el in re.findall(r"(?:(?!:action).)*", all_action_schema) if
                              el.strip() != ""]
 
             for schema in action_schema:
                 op_name = schema.split()[1]
-                op_params = [el for el in re.findall("\([^()]*\)", re.findall(":parameters.*:precondition", schema)[0])[0].strip()[1:-1].split()
+                op_params = [el for el in re.findall(r"\([^()]*\)", re.findall(r":parameters.*:precondition", schema)[0])[0].strip()[1:-1].split()
                              if el.startswith("?")]
 
-                all_eff = re.findall(":effect.*", schema)[0].strip()[:-1].strip()
+                all_eff = re.findall(r":effect.*", schema)[0].strip()[:-1].strip()
 
-                cur_neg_effect = re.findall("\(not[^)]*\)\)", all_eff)
-                cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+                cur_neg_effect = re.findall(r"\(not[^)]*\)\)", all_eff)
+                cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
                                   if el not in [el.replace("(not", "").strip()[:-1] for el in cur_neg_effect]
                                   and "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
@@ -360,15 +360,15 @@ def action_model_eff_neg_predictions_with_uncert(uncert_neg_eff):
         # Store learned action model effects
 
         all_action_schema = " ".join(learned_action_model)[" ".join(learned_action_model).index(":action "):]
-        # action_schema = re.findall("{}(.*?):effect".format(operator), " ".join(data))[0]
-        action_schema = [el.strip() for el in re.findall("(?:(?!:action).)*", all_action_schema) if el.strip() != ""]
+        # action_schema = re.findall(r"{}(.*?):effect".format(operator), " ".join(data))[0]
+        action_schema = [el.strip() for el in re.findall(r"(?:(?!:action).)*", all_action_schema) if el.strip() != ""]
 
         for schema in action_schema:
             op_name = schema.split()[1]
-            all_eff = re.findall(":effect.*", schema)[0].strip()[:-1].strip()
+            all_eff = re.findall(r":effect.*", schema)[0].strip()[:-1].strip()
 
-            cur_neg_effect = re.findall("\(not[^)]*\)\)", all_eff)
-            cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+            cur_neg_effect = re.findall(r"\(not[^)]*\)\)", all_eff)
+            cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
                               if el not in [el.replace("(not","").strip()[:-1] for el in cur_neg_effect]
                               and "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
@@ -383,19 +383,19 @@ def action_model_eff_neg_predictions_with_uncert(uncert_neg_eff):
             # Store real action model effects
 
             all_action_schema = " ".join(real_action_model)[" ".join(real_action_model).index(":action "):]
-            # action_schema = re.findall("{}(.*?):effect".format(operator), " ".join(data))[0]
-            action_schema = [el.strip() for el in re.findall("(?:(?!:action).)*", all_action_schema) if
+            # action_schema = re.findall(r"{}(.*?):effect".format(operator), " ".join(data))[0]
+            action_schema = [el.strip() for el in re.findall(r"(?:(?!:action).)*", all_action_schema) if
                              el.strip() != ""]
 
             for schema in action_schema:
                 op_name = schema.split()[1]
-                op_params = [el for el in re.findall("\([^()]*\)", re.findall(":parameters.*:precondition", schema)[0])[0].strip()[1:-1].split()
+                op_params = [el for el in re.findall(r"\([^()]*\)", re.findall(r":parameters.*:precondition", schema)[0])[0].strip()[1:-1].split()
                              if el.startswith("?")]
 
-                all_eff = re.findall(":effect.*", schema)[0].strip()[:-1].strip()
+                all_eff = re.findall(r":effect.*", schema)[0].strip()[:-1].strip()
 
-                cur_neg_effect = re.findall("\(not[^)]*\)\)", all_eff)
-                cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+                cur_neg_effect = re.findall(r"\(not[^)]*\)\)", all_eff)
+                cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
                                   if el not in [el.replace("(not", "").strip()[:-1] for el in cur_neg_effect]
                                   and "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
@@ -451,16 +451,16 @@ def action_model_eff_pos_predictions(evaluated_model):
         # Store learned action model effects
 
         all_action_schema = " ".join(learned_action_model)[" ".join(learned_action_model).index(":action "):]
-        # action_schema = re.findall("{}(.*?):effect".format(operator), " ".join(data))[0]
-        action_schema = [el.strip() for el in re.findall("(?:(?!:action).)*", all_action_schema) if el.strip() != ""]
+        # action_schema = re.findall(r"{}(.*?):effect".format(operator), " ".join(data))[0]
+        action_schema = [el.strip() for el in re.findall(r"(?:(?!:action).)*", all_action_schema) if el.strip() != ""]
 
         for schema in action_schema:
             op_name = schema.split()[1]
-            all_eff = re.findall(":effect.*", schema)[0].strip()[:-1].strip()
+            all_eff = re.findall(r":effect.*", schema)[0].strip()[:-1].strip()
 
-            cur_neg_effect = re.findall("\(not[^)]*\)\)", all_eff)
+            cur_neg_effect = re.findall(r"\(not[^)]*\)\)", all_eff)
 
-            cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff) if "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
+            cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff) if "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
             for neg in cur_neg_effect:
                 # if neg.replace("(not", "").strip()[:-1] in cur_pos_effect:
@@ -479,20 +479,20 @@ def action_model_eff_pos_predictions(evaluated_model):
             # Store real action model effects
 
             all_action_schema = " ".join(real_action_model)[" ".join(real_action_model).index(":action "):]
-            # action_schema = re.findall("{}(.*?):effect".format(operator), " ".join(data))[0]
-            action_schema = [el.strip() for el in re.findall("(?:(?!:action).)*", all_action_schema) if
+            # action_schema = re.findall(r"{}(.*?):effect".format(operator), " ".join(data))[0]
+            action_schema = [el.strip() for el in re.findall(r"(?:(?!:action).)*", all_action_schema) if
                              el.strip() != ""]
 
             for schema in action_schema:
                 op_name = schema.split()[1]
-                op_params = [el for el in re.findall("\([^()]*\)", re.findall(":parameters.*:precondition", schema)[0])[0].strip()[1:-1].split()
+                op_params = [el for el in re.findall(r"\([^()]*\)", re.findall(r":parameters.*:precondition", schema)[0])[0].strip()[1:-1].split()
                              if el.startswith("?")]
 
-                all_eff = re.findall(":effect.*", schema)[0].strip()[:-1].strip()
+                all_eff = re.findall(r":effect.*", schema)[0].strip()[:-1].strip()
 
-                cur_neg_effect = re.findall("\(not[^)]*\)\)", all_eff)
+                cur_neg_effect = re.findall(r"\(not[^)]*\)\)", all_eff)
 
-                cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+                cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
                                   if "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
                 for neg in cur_neg_effect:
@@ -501,10 +501,10 @@ def action_model_eff_pos_predictions(evaluated_model):
                     if neg.replace("(not", "", 1).strip()[:-1] in cur_pos_effect:
                         cur_pos_effect.remove(neg.replace("(not", "" , 1).strip()[:-1])
 
-                # cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+                # cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
                 #                   if el not in [el.replace("(not", "").strip()[:-1] for el in cur_neg_effect]
                 #                   and "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
-                # cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+                # cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
                 #                   if el not in [el.replace("(not", "").strip()[:-1] for el in cur_neg_effect]
                 #                   and "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
@@ -562,22 +562,22 @@ def action_model_eff_predictions(evaluated_model):
         # Store learned action model effects
 
         all_action_schema = " ".join(learned_action_model)[" ".join(learned_action_model).index(":action "):]
-        # action_schema = re.findall("{}(.*?):effect".format(operator), " ".join(data))[0]
-        action_schema = [el.strip() for el in re.findall("(?:(?!:action).)*", all_action_schema) if el.strip() != ""]
+        # action_schema = re.findall(r"{}(.*?):effect".format(operator), " ".join(data))[0]
+        action_schema = [el.strip() for el in re.findall(r"(?:(?!:action).)*", all_action_schema) if el.strip() != ""]
 
         for schema in action_schema:
             op_name = schema.split()[1]
-            all_eff = re.findall(":effect.*", schema)[0].strip()[:-1].strip()
+            all_eff = re.findall(r":effect.*", schema)[0].strip()[:-1].strip()
 
-            cur_neg_effect = re.findall("\(not[^)]*\)\)", all_eff)
+            cur_neg_effect = re.findall(r"\(not[^)]*\)\)", all_eff)
 
-            cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+            cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
                               if "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
             for neg in cur_neg_effect:
                 if neg.replace("(not", "").strip()[:-1] in cur_pos_effect:
                     cur_pos_effect.remove(neg.replace("(not", "").strip()[:-1])
-            # cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+            # cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
             #                   if el not in [el.replace("(not","").strip()[:-1] for el in cur_neg_effect]
             #                   and "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
@@ -592,27 +592,27 @@ def action_model_eff_predictions(evaluated_model):
             # Store real action model effects
 
             all_action_schema = " ".join(real_action_model)[" ".join(real_action_model).index(":action "):]
-            # action_schema = re.findall("{}(.*?):effect".format(operator), " ".join(data))[0]
-            action_schema = [el.strip() for el in re.findall("(?:(?!:action).)*", all_action_schema) if
+            # action_schema = re.findall(r"{}(.*?):effect".format(operator), " ".join(data))[0]
+            action_schema = [el.strip() for el in re.findall(r"(?:(?!:action).)*", all_action_schema) if
                              el.strip() != ""]
 
             for schema in action_schema:
                 op_name = schema.split()[1]
-                op_params = [el for el in re.findall("\([^()]*\)", re.findall(":parameters.*:precondition", schema)[0])[0].strip()[1:-1].split()
+                op_params = [el for el in re.findall(r"\([^()]*\)", re.findall(r":parameters.*:precondition", schema)[0])[0].strip()[1:-1].split()
                              if el.startswith("?")]
 
-                all_eff = re.findall(":effect.*", schema)[0].strip()[:-1].strip()
+                all_eff = re.findall(r":effect.*", schema)[0].strip()[:-1].strip()
 
-                cur_neg_effect = re.findall("\(not[^)]*\)\)", all_eff)
+                cur_neg_effect = re.findall(r"\(not[^)]*\)\)", all_eff)
 
 
-                cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+                cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
                                   if "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
                 for neg in cur_neg_effect:
                     if neg.replace("(not", "").strip()[:-1] in cur_pos_effect:
                         cur_pos_effect.remove(neg.replace("(not", "").strip()[:-1])
-                # cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+                # cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
                 #                   if el not in [el.replace("(not", "").strip()[:-1] for el in cur_neg_effect]
                 #                   and "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
@@ -670,22 +670,22 @@ def action_model_eff_predictions_with_uncertain_neg(uncert_neg_eff):
         # Store learned action model effects
 
         all_action_schema = " ".join(learned_action_model)[" ".join(learned_action_model).index(":action "):]
-        # action_schema = re.findall("{}(.*?):effect".format(operator), " ".join(data))[0]
-        action_schema = [el.strip() for el in re.findall("(?:(?!:action).)*", all_action_schema) if el.strip() != ""]
+        # action_schema = re.findall(r"{}(.*?):effect".format(operator), " ".join(data))[0]
+        action_schema = [el.strip() for el in re.findall(r"(?:(?!:action).)*", all_action_schema) if el.strip() != ""]
 
         for schema in action_schema:
             op_name = schema.split()[1]
-            all_eff = re.findall(":effect.*", schema)[0].strip()[:-1].strip()
+            all_eff = re.findall(r":effect.*", schema)[0].strip()[:-1].strip()
 
-            cur_neg_effect = re.findall("\(not[^)]*\)\)", all_eff)
+            cur_neg_effect = re.findall(r"\(not[^)]*\)\)", all_eff)
 
-            cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+            cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
                               if "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
             for neg in cur_neg_effect:
                 if neg.replace("(not", "").strip()[:-1] in cur_pos_effect:
                     cur_pos_effect.remove(neg.replace("(not", "").strip()[:-1])
-            # cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+            # cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
             #                   if el not in [el.replace("(not","").strip()[:-1] for el in cur_neg_effect]
             #                   and "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
@@ -700,27 +700,27 @@ def action_model_eff_predictions_with_uncertain_neg(uncert_neg_eff):
             # Store real action model effects
 
             all_action_schema = " ".join(real_action_model)[" ".join(real_action_model).index(":action "):]
-            # action_schema = re.findall("{}(.*?):effect".format(operator), " ".join(data))[0]
-            action_schema = [el.strip() for el in re.findall("(?:(?!:action).)*", all_action_schema) if
+            # action_schema = re.findall(r"{}(.*?):effect".format(operator), " ".join(data))[0]
+            action_schema = [el.strip() for el in re.findall(r"(?:(?!:action).)*", all_action_schema) if
                              el.strip() != ""]
 
             for schema in action_schema:
                 op_name = schema.split()[1]
-                op_params = [el for el in re.findall("\([^()]*\)", re.findall(":parameters.*:precondition", schema)[0])[0].strip()[1:-1].split()
+                op_params = [el for el in re.findall(r"\([^()]*\)", re.findall(r":parameters.*:precondition", schema)[0])[0].strip()[1:-1].split()
                              if el.startswith("?")]
 
-                all_eff = re.findall(":effect.*", schema)[0].strip()[:-1].strip()
+                all_eff = re.findall(r":effect.*", schema)[0].strip()[:-1].strip()
 
-                cur_neg_effect = re.findall("\(not[^)]*\)\)", all_eff)
+                cur_neg_effect = re.findall(r"\(not[^)]*\)\)", all_eff)
 
 
-                cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+                cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
                                   if "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
                 for neg in cur_neg_effect:
                     if neg.replace("(not", "").strip()[:-1] in cur_pos_effect:
                         cur_pos_effect.remove(neg.replace("(not", "").strip()[:-1])
-                # cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+                # cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
                 #                   if el not in [el.replace("(not", "").strip()[:-1] for el in cur_neg_effect]
                 #                   and "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
@@ -806,7 +806,7 @@ def action_model_preconditions_predictions(evaluated_model):
                             action_precond.append(learned_action_model[k].strip())
 
                 learned_action_precond[action_name] = list(set([el.replace(" ", "")
-                                                                for el in sorted(re.findall("\([^()]*\)", "".join(action_precond)))
+                                                                for el in sorted(re.findall(r"\([^()]*\)", "".join(action_precond)))
                                                                 if "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]))
 
         # domain = Configuration.INSTANCE_DATA_PATH_PDDL.split("/")[-3]
@@ -824,7 +824,7 @@ def action_model_preconditions_predictions(evaluated_model):
                     found_precond = False
                     action_name = line.strip().split()[1]
                     # action_params = [el.replace(" -", "").strip() for el in
-                    #                  re.findall("\?[^ - ]* -", real_action_model[i + 1])]
+                    #                  re.findall(r"\?[^ - ]* -", real_action_model[i + 1])]
 
                     action_params = [el for el in real_action_model[i + 1].replace("(","").replace(")","").strip().split()[1:]
                                      if el.startswith("?")]
@@ -861,7 +861,7 @@ def action_model_preconditions_predictions(evaluated_model):
 
                     real_action_precond[action_name] = list(set([el.replace(" ", "")
                                                                  for el in sorted(
-                            re.findall("\([^()]*\)", "".join(action_precond)))]))
+                            re.findall(r"\([^()]*\)", "".join(action_precond)))]))
 
     tp_precs = 0
     fp_precs = 0
@@ -923,7 +923,7 @@ def action_model_preconditions_statistics(evaluated_model):
                             action_precond.append(learned_action_model[k].strip())
 
                 learned_action_precond[action_name] = list(set([el.replace(" ", "")
-                                                                for el in sorted(re.findall("\([^()]*\)", "".join(action_precond)))
+                                                                for el in sorted(re.findall(r"\([^()]*\)", "".join(action_precond)))
                                                                 if "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]))
 
         # domain = Configuration.INSTANCE_DATA_PATH_PDDL.split("/")[-3]
@@ -941,7 +941,7 @@ def action_model_preconditions_statistics(evaluated_model):
                     found_precond = False
                     action_name = line.strip().split()[1]
                     # action_params = [el.replace(" -", "").strip() for el in
-                    #                  re.findall("\?[^ - ]* -", real_action_model[i + 1])]
+                    #                  re.findall(r"\?[^ - ]* -", real_action_model[i + 1])]
 
                     action_params = [el for el in real_action_model[i + 1].replace("(","").replace(")","").strip().split()[1:]
                                      if el.startswith("?")]
@@ -978,7 +978,7 @@ def action_model_preconditions_statistics(evaluated_model):
 
                     real_action_precond[action_name] = list(set([el.replace(" ", "")
                                                                  for el in sorted(
-                            re.findall("\([^()]*\)", "".join(action_precond)))]))
+                            re.findall(r"\([^()]*\)", "".join(action_precond)))]))
 
     # tp_precs = 0
     # fp_precs = 0
@@ -1043,7 +1043,7 @@ def action_model_preconditions_size(evaluated_model):
                             action_precond.append(learned_action_model[k].strip())
 
                 learned_action_precond[action_name] = list(set([el.replace(" ", "")
-                                                                for el in sorted(re.findall("\([^()]*\)", "".join(action_precond)))
+                                                                for el in sorted(re.findall(r"\([^()]*\)", "".join(action_precond)))
                                                                 if "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]))
 
         # domain = Configuration.INSTANCE_DATA_PATH_PDDL.split("/")[-3]
@@ -1061,7 +1061,7 @@ def action_model_preconditions_size(evaluated_model):
                     found_precond = False
                     action_name = line.strip().split()[1]
                     # action_params = [el.replace(" -", "").strip() for el in
-                    #                  re.findall("\?[^ - ]* -", real_action_model[i + 1])]
+                    #                  re.findall(r"\?[^ - ]* -", real_action_model[i + 1])]
 
                     action_params = [el for el in real_action_model[i + 1].replace("(","").replace(")","").strip().split()[1:]
                                      if el.startswith("?")]
@@ -1098,7 +1098,7 @@ def action_model_preconditions_size(evaluated_model):
 
                     real_action_precond[action_name] = list(set([el.replace(" ", "")
                                                                  for el in sorted(
-                            re.findall("\([^()]*\)", "".join(action_precond)))]))
+                            re.findall(r"\([^()]*\)", "".join(action_precond)))]))
 
     # tp_precs = 0
     # fp_precs = 0
@@ -1132,16 +1132,16 @@ def action_model_eff_pos_size(evaluated_model):
         # Store learned action model effects
 
         all_action_schema = " ".join(learned_action_model)[" ".join(learned_action_model).index(":action "):]
-        # action_schema = re.findall("{}(.*?):effect".format(operator), " ".join(data))[0]
-        action_schema = [el.strip() for el in re.findall("(?:(?!:action).)*", all_action_schema) if el.strip() != ""]
+        # action_schema = re.findall(r"{}(.*?):effect".format(operator), " ".join(data))[0]
+        action_schema = [el.strip() for el in re.findall(r"(?:(?!:action).)*", all_action_schema) if el.strip() != ""]
 
         for schema in action_schema:
             op_name = schema.split()[1]
-            all_eff = re.findall(":effect.*", schema)[0].strip()[:-1].strip()
+            all_eff = re.findall(r":effect.*", schema)[0].strip()[:-1].strip()
 
-            cur_neg_effect = re.findall("\(not[^)]*\)\)", all_eff)
+            cur_neg_effect = re.findall(r"\(not[^)]*\)\)", all_eff)
 
-            cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+            cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
                               if "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
             for neg in cur_neg_effect:
@@ -1161,21 +1161,21 @@ def action_model_eff_pos_size(evaluated_model):
             # Store real action model effects
 
             all_action_schema = " ".join(real_action_model)[" ".join(real_action_model).index(":action "):]
-            # action_schema = re.findall("{}(.*?):effect".format(operator), " ".join(data))[0]
-            action_schema = [el.strip() for el in re.findall("(?:(?!:action).)*", all_action_schema) if
+            # action_schema = re.findall(r"{}(.*?):effect".format(operator), " ".join(data))[0]
+            action_schema = [el.strip() for el in re.findall(r"(?:(?!:action).)*", all_action_schema) if
                              el.strip() != ""]
 
             for schema in action_schema:
                 op_name = schema.split()[1]
-                op_params = [el for el in re.findall("\([^()]*\)", re.findall(":parameters.*:precondition", schema)[0])[0].strip()[1:-1].split()
+                op_params = [el for el in re.findall(r"\([^()]*\)", re.findall(r":parameters.*:precondition", schema)[0])[0].strip()[1:-1].split()
                              if el.startswith("?")]
 
-                all_eff = re.findall(":effect.*", schema)[0].strip()[:-1].strip()
+                all_eff = re.findall(r":effect.*", schema)[0].strip()[:-1].strip()
 
-                cur_neg_effect = re.findall("\(not[^)]*\)\)", all_eff)
+                cur_neg_effect = re.findall(r"\(not[^)]*\)\)", all_eff)
 
 
-                cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+                cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
                                   if "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
                 for neg in cur_neg_effect:
@@ -1229,15 +1229,15 @@ def action_model_eff_neg_size(evaluated_model):
         # Store learned action model effects
 
         all_action_schema = " ".join(learned_action_model)[" ".join(learned_action_model).index(":action "):]
-        # action_schema = re.findall("{}(.*?):effect".format(operator), " ".join(data))[0]
-        action_schema = [el.strip() for el in re.findall("(?:(?!:action).)*", all_action_schema) if el.strip() != ""]
+        # action_schema = re.findall(r"{}(.*?):effect".format(operator), " ".join(data))[0]
+        action_schema = [el.strip() for el in re.findall(r"(?:(?!:action).)*", all_action_schema) if el.strip() != ""]
 
         for schema in action_schema:
             op_name = schema.split()[1]
-            all_eff = re.findall(":effect.*", schema)[0].strip()[:-1].strip()
+            all_eff = re.findall(r":effect.*", schema)[0].strip()[:-1].strip()
 
-            cur_neg_effect = re.findall("\(not[^)]*\)\)", all_eff)
-            # cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+            cur_neg_effect = re.findall(r"\(not[^)]*\)\)", all_eff)
+            # cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
             #                   if el not in [el.replace("(not","").strip()[:-1] for el in cur_neg_effect]
             #                   and "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
@@ -1252,19 +1252,19 @@ def action_model_eff_neg_size(evaluated_model):
             # Store real action model effects
 
             all_action_schema = " ".join(real_action_model)[" ".join(real_action_model).index(":action "):]
-            # action_schema = re.findall("{}(.*?):effect".format(operator), " ".join(data))[0]
-            action_schema = [el.strip() for el in re.findall("(?:(?!:action).)*", all_action_schema) if
+            # action_schema = re.findall(r"{}(.*?):effect".format(operator), " ".join(data))[0]
+            action_schema = [el.strip() for el in re.findall(r"(?:(?!:action).)*", all_action_schema) if
                              el.strip() != ""]
 
             for schema in action_schema:
                 op_name = schema.split()[1]
-                op_params = [el for el in re.findall("\([^()]*\)", re.findall(":parameters.*:precondition", schema)[0])[0].strip()[1:-1].split()
+                op_params = [el for el in re.findall(r"\([^()]*\)", re.findall(r":parameters.*:precondition", schema)[0])[0].strip()[1:-1].split()
                              if el.startswith("?")]
 
-                all_eff = re.findall(":effect.*", schema)[0].strip()[:-1].strip()
+                all_eff = re.findall(r":effect.*", schema)[0].strip()[:-1].strip()
 
-                cur_neg_effect = re.findall("\(not[^)]*\)\)", all_eff)
-                # cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+                cur_neg_effect = re.findall(r"\(not[^)]*\)\)", all_eff)
+                # cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
                 #                   if el not in [el.replace("(not", "").strip()[:-1] for el in cur_neg_effect]
                 #                   and "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
@@ -1320,16 +1320,16 @@ def action_model_eff_pos_statistics(evaluated_model):
         # Store learned action model effects
 
         all_action_schema = " ".join(learned_action_model)[" ".join(learned_action_model).index(":action "):]
-        # action_schema = re.findall("{}(.*?):effect".format(operator), " ".join(data))[0]
-        action_schema = [el.strip() for el in re.findall("(?:(?!:action).)*", all_action_schema) if el.strip() != ""]
+        # action_schema = re.findall(r"{}(.*?):effect".format(operator), " ".join(data))[0]
+        action_schema = [el.strip() for el in re.findall(r"(?:(?!:action).)*", all_action_schema) if el.strip() != ""]
 
         for schema in action_schema:
             op_name = schema.split()[1]
-            all_eff = re.findall(":effect.*", schema)[0].strip()[:-1].strip()
+            all_eff = re.findall(r":effect.*", schema)[0].strip()[:-1].strip()
 
-            cur_neg_effect = re.findall("\(not[^)]*\)\)", all_eff)
+            cur_neg_effect = re.findall(r"\(not[^)]*\)\)", all_eff)
 
-            cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+            cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
                               if "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
             for neg in cur_neg_effect:
@@ -1350,21 +1350,21 @@ def action_model_eff_pos_statistics(evaluated_model):
             # Store real action model effects
 
             all_action_schema = " ".join(real_action_model)[" ".join(real_action_model).index(":action "):]
-            # action_schema = re.findall("{}(.*?):effect".format(operator), " ".join(data))[0]
-            action_schema = [el.strip() for el in re.findall("(?:(?!:action).)*", all_action_schema) if
+            # action_schema = re.findall(r"{}(.*?):effect".format(operator), " ".join(data))[0]
+            action_schema = [el.strip() for el in re.findall(r"(?:(?!:action).)*", all_action_schema) if
                              el.strip() != ""]
 
             for schema in action_schema:
                 op_name = schema.split()[1]
-                op_params = [el for el in re.findall("\([^()]*\)", re.findall(":parameters.*:precondition", schema)[0])[0].strip()[1:-1].split()
+                op_params = [el for el in re.findall(r"\([^()]*\)", re.findall(r":parameters.*:precondition", schema)[0])[0].strip()[1:-1].split()
                              if el.startswith("?")]
 
-                all_eff = re.findall(":effect.*", schema)[0].strip()[:-1].strip()
+                all_eff = re.findall(r":effect.*", schema)[0].strip()[:-1].strip()
 
-                cur_neg_effect = re.findall("\(not[^)]*\)\)", all_eff)
+                cur_neg_effect = re.findall(r"\(not[^)]*\)\)", all_eff)
 
 
-                cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+                cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
                                   if "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
                 for neg in cur_neg_effect:
@@ -1420,15 +1420,15 @@ def action_model_eff_neg_statistics(evaluated_model):
         # Store learned action model effects
 
         all_action_schema = " ".join(learned_action_model)[" ".join(learned_action_model).index(":action "):]
-        # action_schema = re.findall("{}(.*?):effect".format(operator), " ".join(data))[0]
-        action_schema = [el.strip() for el in re.findall("(?:(?!:action).)*", all_action_schema) if el.strip() != ""]
+        # action_schema = re.findall(r"{}(.*?):effect".format(operator), " ".join(data))[0]
+        action_schema = [el.strip() for el in re.findall(r"(?:(?!:action).)*", all_action_schema) if el.strip() != ""]
 
         for schema in action_schema:
             op_name = schema.split()[1]
-            all_eff = re.findall(":effect.*", schema)[0].strip()[:-1].strip()
+            all_eff = re.findall(r":effect.*", schema)[0].strip()[:-1].strip()
 
-            cur_neg_effect = re.findall("\(not[^)]*\)\)", all_eff)
-            # cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+            cur_neg_effect = re.findall(r"\(not[^)]*\)\)", all_eff)
+            # cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
             #                   if el not in [el.replace("(not","").strip()[:-1] for el in cur_neg_effect]
             #                   and "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
@@ -1443,19 +1443,19 @@ def action_model_eff_neg_statistics(evaluated_model):
             # Store real action model effects
 
             all_action_schema = " ".join(real_action_model)[" ".join(real_action_model).index(":action "):]
-            # action_schema = re.findall("{}(.*?):effect".format(operator), " ".join(data))[0]
-            action_schema = [el.strip() for el in re.findall("(?:(?!:action).)*", all_action_schema) if
+            # action_schema = re.findall(r"{}(.*?):effect".format(operator), " ".join(data))[0]
+            action_schema = [el.strip() for el in re.findall(r"(?:(?!:action).)*", all_action_schema) if
                              el.strip() != ""]
 
             for schema in action_schema:
                 op_name = schema.split()[1]
-                op_params = [el for el in re.findall("\([^()]*\)", re.findall(":parameters.*:precondition", schema)[0])[0].strip()[1:-1].split()
+                op_params = [el for el in re.findall(r"\([^()]*\)", re.findall(r":parameters.*:precondition", schema)[0])[0].strip()[1:-1].split()
                              if el.startswith("?")]
 
-                all_eff = re.findall(":effect.*", schema)[0].strip()[:-1].strip()
+                all_eff = re.findall(r":effect.*", schema)[0].strip()[:-1].strip()
 
-                cur_neg_effect = re.findall("\(not[^)]*\)\)", all_eff)
-                # cur_pos_effect = [el for el in re.findall("\([^()]*\)", all_eff)
+                cur_neg_effect = re.findall(r"\(not[^)]*\)\)", all_eff)
+                # cur_pos_effect = [el for el in re.findall(r"\([^()]*\)", all_eff)
                 #                   if el not in [el.replace("(not", "").strip()[:-1] for el in cur_neg_effect]
                 #                   and "".join(el.split()) != "(and)" and "".join(el.split()) != "()"]
 
@@ -1512,13 +1512,13 @@ def action_model_eff_neg_statistics_with_uncertain(uncert_neg_eff):
 
         # Store learned action model effects
         all_action_schema = " ".join(learned_action_model)[" ".join(learned_action_model).index(":action "):]
-        action_schema = [el.strip() for el in re.findall("(?:(?!:action).)*", all_action_schema) if el.strip() != ""]
+        action_schema = [el.strip() for el in re.findall(r"(?:(?!:action).)*", all_action_schema) if el.strip() != ""]
 
         for schema in action_schema:
             op_name = schema.split()[1]
-            all_eff = re.findall(":effect.*", schema)[0].strip()[:-1].strip()
+            all_eff = re.findall(r":effect.*", schema)[0].strip()[:-1].strip()
 
-            cur_neg_effect = re.findall("\(not[^)]*\)\)", all_eff)
+            cur_neg_effect = re.findall(r"\(not[^)]*\)\)", all_eff)
 
             learned_action_eff_neg[op_name] = cur_neg_effect + ["(not {})".format(el) for el in uncert_neg_eff[op_name]]
 
@@ -1526,17 +1526,17 @@ def action_model_eff_neg_statistics_with_uncertain(uncert_neg_eff):
             real_action_model = [el.lower() for el in f.read().split('\n') if el.strip() != ""]
 
             all_action_schema = " ".join(real_action_model)[" ".join(real_action_model).index(":action "):]
-            action_schema = [el.strip() for el in re.findall("(?:(?!:action).)*", all_action_schema) if
+            action_schema = [el.strip() for el in re.findall(r"(?:(?!:action).)*", all_action_schema) if
                              el.strip() != ""]
 
             for schema in action_schema:
                 op_name = schema.split()[1]
-                op_params = [el for el in re.findall("\([^()]*\)", re.findall(":parameters.*:precondition", schema)[0])[0].strip()[1:-1].split()
+                op_params = [el for el in re.findall(r"\([^()]*\)", re.findall(r":parameters.*:precondition", schema)[0])[0].strip()[1:-1].split()
                              if el.startswith("?")]
 
-                all_eff = re.findall(":effect.*", schema)[0].strip()[:-1].strip()
+                all_eff = re.findall(r":effect.*", schema)[0].strip()[:-1].strip()
 
-                cur_neg_effect = re.findall("\(not[^)]*\)\)", all_eff)
+                cur_neg_effect = re.findall(r"\(not[^)]*\)\)", all_eff)
 
                 for k in range(len(cur_neg_effect)):
 

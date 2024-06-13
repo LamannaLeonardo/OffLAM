@@ -87,7 +87,7 @@ class ActionModel:
             data = f.read().split("\n")
 
             objects_row = [el.replace(")","").strip()
-                           for el in re.findall(":types.*\(:predicates","++".join(data))[0].replace(":types","").replace("(:predicates", "").split("++")
+                           for el in re.findall(r":types.*\(:predicates","++".join(data))[0].replace(":types","").replace("(:predicates", "").split("++")
                            if el.strip() != ""]
 
             objects = defaultdict(list)
@@ -130,13 +130,13 @@ class ActionModel:
             all_action_schema = " ".join(data)[" ".join(data).index(":action"):]
 
             # Read certain operator preconditions and effects
-            operators_cert = [o.strip().lower() for o in re.findall("action(.*?) :parameters", all_action_schema)
+            operators_cert = [o.strip().lower() for o in re.findall(r"action(.*?) :parameters", all_action_schema)
                               if not o.strip().lower().endswith('-uncert')]
             for operator_name in operators_cert:
 
                 # Read operator parameters
-                action_schema = re.findall(":action {}(.*?)(?:action|$)".format(operator_name), all_action_schema)[0]
-                op_params_row = re.findall(":parameters(.*?):precondition", action_schema)[0].strip()[1:-1]
+                action_schema = re.findall(r":action {}(.*?)(?:action|$)".format(operator_name), all_action_schema)[0]
+                op_params_row = re.findall(r":parameters(.*?):precondition", action_schema)[0].strip()[1:-1]
                 params = [p.strip() for p in op_params_row.split() if p.strip() != '-']
                 op_params = dict()
 
@@ -150,15 +150,15 @@ class ActionModel:
                             params_of_type = []
 
                 # Read operator certain preconditions
-                op_precs_row = re.findall(":precondition(.*?):effect", action_schema)[0].strip()[1:-1]
-                precs_cert = {p.strip() for p in re.findall("\([^()]*\)", op_precs_row)
+                op_precs_row = re.findall(r":precondition(.*?):effect", action_schema)[0].strip()[1:-1]
+                precs_cert = {p.strip() for p in re.findall(r"\([^()]*\)", op_precs_row)
                             if not len(p.replace('(and', '').replace(')', '').strip()) == 0}
 
                 # Read operator certain effects
-                op_effects_row = re.findall(":effect(.*?)(?:action|$)", action_schema)[0]
-                eff_neg_cert = {e.strip()[1:-1].replace('not', '', 1).strip() for e in re.findall("\(not[^)]*\)\)", op_effects_row)
+                op_effects_row = re.findall(r":effect(.*?)(?:action|$)", action_schema)[0]
+                eff_neg_cert = {e.strip()[1:-1].replace('not', '', 1).strip() for e in re.findall(r"\(not[^)]*\)\)", op_effects_row)
                                   if not len(e.replace('(and', '').replace(')', '').strip()) == 0}
-                eff_pos_cert = {e.strip() for e in re.findall("\([^()]*\)", op_effects_row)
+                eff_pos_cert = {e.strip() for e in re.findall(r"\([^()]*\)", op_effects_row)
                                   if e not in eff_neg_cert and not len(e.replace('(and', '').replace(')', '').strip()) == 0}
 
                 # Format preconditions and effects syntax
@@ -173,13 +173,13 @@ class ActionModel:
                                                     eff_pos_cert=eff_pos_cert, eff_neg_cert=eff_neg_cert)
 
             # Read uncertain operator preconditions and effects
-            operators_uncert = [o.strip().lower() for o in re.findall("action(.*?) :parameters", all_action_schema)
+            operators_uncert = [o.strip().lower() for o in re.findall(r"action(.*?) :parameters", all_action_schema)
                                 if o.strip().lower().endswith('-uncert')]
             for operator_name in operators_uncert:
 
                 # Read operator parameters
-                action_schema = re.findall(":action {}(.*?)(?:action|$)".format(operator_name), all_action_schema)[0]
-                op_params_row = re.findall(":parameters(.*?):precondition", action_schema)[0].strip()[1:-1]
+                action_schema = re.findall(r":action {}(.*?)(?:action|$)".format(operator_name), all_action_schema)[0]
+                op_params_row = re.findall(r":parameters(.*?):precondition", action_schema)[0].strip()[1:-1]
                 params = [p.strip() for p in op_params_row.split() if p.strip() != '-']
                 op_params = dict()
 
@@ -193,15 +193,15 @@ class ActionModel:
                             params_of_type = []
 
                 # Read operator uncertain preconditions
-                op_precs_row = re.findall(":precondition(.*?):effect", action_schema)[0].strip()[1:-1]
-                precs_uncert = {p.strip() for p in re.findall("\([^()]*\)", op_precs_row)
+                op_precs_row = re.findall(r":precondition(.*?):effect", action_schema)[0].strip()[1:-1]
+                precs_uncert = {p.strip() for p in re.findall(r"\([^()]*\)", op_precs_row)
                             if not len(p.replace('(and', '').replace(')', '').strip()) == 0}
 
                 # Read operator uncertain effects
-                op_effects_row = re.findall(":effect(.*?)(?:action|$)", action_schema)[0]
-                eff_neg_uncert = {e.strip()[1:-1].replace('not', '', 1).strip() for e in re.findall("\(not[^)]*\)\)", op_effects_row)
+                op_effects_row = re.findall(r":effect(.*?)(?:action|$)", action_schema)[0]
+                eff_neg_uncert = {e.strip()[1:-1].replace('not', '', 1).strip() for e in re.findall(r"\(not[^)]*\)\)", op_effects_row)
                                   if not len(e.replace('(and', '').replace(')', '').strip()) == 0}
-                eff_pos_uncert = {e.strip() for e in re.findall("\([^()]*\)", op_effects_row)
+                eff_pos_uncert = {e.strip() for e in re.findall(r"\([^()]*\)", op_effects_row)
                                   if e not in eff_neg_cert and not len(e.replace('(and', '').replace(')', '').strip()) == 0}
                 filtered_eff_pos_uncert = copy.deepcopy(eff_pos_uncert)
                 for e in eff_neg_uncert:
@@ -227,8 +227,8 @@ class ActionModel:
 
         with open(f_name, "r") as f:
             data = [el.strip() for el in f.read().split("\n")]
-            predicates_row = re.findall(":predicates(.*?):action", " ".join(data))[0]
-            predicates_row = [p.strip() for p in re.findall("\([^()]*\)", predicates_row)]
+            predicates_row = re.findall(r":predicates(.*?):action", " ".join(data))[0]
+            predicates_row = [p.strip() for p in re.findall(r"\([^()]*\)", predicates_row)]
 
             predicates = []
             for p in predicates_row:
@@ -274,9 +274,9 @@ class ActionModel:
         # Get all predicates
         with open(self.input_file, "r") as f:
             data = [el.strip() for el in f.read().split("\n")]
-            preds = re.findall(":predicates.+?:action","".join(data))[0]
+            preds = re.findall(r":predicates.+?:action","".join(data))[0]
 
-        all_predicates = sorted(re.findall("\([^()]*\)", preds))
+        all_predicates = sorted(re.findall(r"\([^()]*\)", preds))
 
         relevant_predicates = []
 
@@ -379,7 +379,7 @@ class ActionModel:
 
         with open(self.input_file, 'r') as f:
             data = [el.strip() for el in f.read().split("\n")]
-            domain_name = re.findall("domain.+?\)","".join(data))[0].strip()[:-1].split()[-1].strip()
+            domain_name = re.findall(r"domain.+?\)","".join(data))[0].strip()[:-1].split()[-1].strip()
 
         with open(f_name, 'w') as f:
 
@@ -485,7 +485,7 @@ class ActionModel:
 
         with open(self.input_file, 'r') as f:
             data = [el.strip() for el in f.read().split("\n")]
-            domain_name = re.findall("domain.+?\)","".join(data))[0].strip()[:-1].split()[-1].strip()
+            domain_name = re.findall(r"domain.+?\)","".join(data))[0].strip()[:-1].split()[-1].strip()
 
         with open(f_name, 'w') as f:
 
@@ -637,7 +637,7 @@ class ActionModel:
 
                 action_schema = re.sub(' +|\t', ' ', action_schema).replace(":", "\n:").replace("\n:", ":", 1)
                 params = [el for i, el in
-                          enumerate(re.findall("\(.*\)", action_schema.split("\n")[1])[0][1:-1].split())
+                          enumerate(re.findall(r"\(.*\)", action_schema.split("\n")[1])[0][1:-1].split())
                           if el.startswith("?")]
 
                 for k, param in enumerate(params):

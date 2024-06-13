@@ -265,7 +265,7 @@ class Learner:
     def get_domain_name(self, action_model):
         with open(action_model.input_file, 'r') as f:
             data = [el.strip() for el in f.read().split("\n")]
-            domain_name = re.findall("domain.+?\)","".join(data))[0].strip()[:-1].split()[-1].strip()
+            domain_name = re.findall(r"domain.+?\)","".join(data))[0].strip()[:-1].split()[-1].strip()
         return domain_name
 
     def parse_trace(self, input_trace):
@@ -308,9 +308,9 @@ class Learner:
             trace_actions = []
 
             for s in states:
-                neg_literals = [e.strip()[1:-1].replace('not', '', 1).strip() for e in re.findall("\(not[^)]*\)\)", s)
+                neg_literals = [e.strip()[1:-1].replace('not', '', 1).strip() for e in re.findall(r"\(not[^)]*\)\)", s)
                                   if not len(e.replace('(and', '').replace(')', '').strip()) == 0]
-                pos_literals = [e.strip() for e in re.findall("\([^()]*\)", s)
+                pos_literals = [e.strip() for e in re.findall(r"\([^()]*\)", s)
                                   if e not in neg_literals and not len(e.replace('(and', '').replace(')', '').strip()) == 0]
                 pos_literals = [f"{l.strip()[1:-1].split()[0]}({f','.join([o for o in l.strip()[1:-1].split()[1:] if o != ''])})"
                                 for l in pos_literals]
@@ -536,7 +536,7 @@ class Learner:
             process = subprocess.run(bash_command, capture_output=True)
             output = str(process.stdout).split('\\n')
 
-            all_actions = re.findall("\([^()]*\)", re.findall("so far.*literals", "".join(output))[0])
+            all_actions = re.findall(r"\([^()]*\)", re.findall(r"so far.*literals", "".join(output))[0])
             all_actions = [a[1:-1].split() for a in all_actions]
             all_actions = {f"({a[0].rsplit('_', 1)[0]} {' '.join(a[1:])})" for a in all_actions}
 
