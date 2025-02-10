@@ -58,15 +58,15 @@ For running OffLAM on a custom domain (e.g. "testworld"), you need to provide an
 To run OffLAM on the custom domain "testworld" run the command `python test.py -d testworld`
 
 
-## Citations (paper to be published)
+## Citations
 ```
 @article{lamanna2024lifted,
   title={Lifted Action Models Learning from Partial Traces},
   author={Lamanna, Leonardo and Serafini, Luciano and Saetti, Alessandro and Gerevini, Alfonso and Traverso, Paolo},
   journal={Artificial Intelligence},
-  volume={},
-  pages={},
-  year={2024},
+  volume={339},
+  pages={104256},
+  year={2025},
   publisher={Elsevier}
 }
 ```
