@@ -25,15 +25,17 @@ template = "{Iter:^6}|{Real_precs:^10}|{Learn_precs:^11}|{Real_pos:^8}|{Learn_po
 
 class Learner:
 
-    def __init__(self):
+    def __init__(self, input_domain_path: str):
 
         # PDDL parser, used to update pddl problem file
         self.parser = PddlParser()
 
         # Initialize action model with input one
-        if os.path.exists('PDDL/domain_input.pddl'):
-            print('[Info] Reading input action model from file PDDL/domain_input.pddl')
-            self.action_model = ActionModel(input_file='PDDL/domain_input.pddl')
+        # if os.path.exists('PDDL/domain_input.pddl'):
+        if os.path.exists(input_domain_path):
+            print(f'[Info] Reading input action model from file {input_domain_path}')
+            self.action_model = ActionModel(input_file=input_domain_path)
+            os.makedirs('PDDL', exist_ok=True)
             self.action_model.write('PDDL/domain_learned.pddl')
         else:
             self.action_model = ActionModel(input_file='PDDL/domain_learned.pddl')
@@ -115,7 +117,8 @@ class Learner:
 
         post_processed_action_model = ActionModel()
         post_processed_action_model.input_file = action_model.input_file
-        post_processed_action_model.types_hierarchy = post_processed_action_model.read_object_types_hierarchy("PDDL/domain_input.pddl")
+        # post_processed_action_model.types_hierarchy = post_processed_action_model.read_object_types_hierarchy("PDDL/domain_input.pddl")
+        post_processed_action_model.types_hierarchy = post_processed_action_model.read_object_types_hierarchy(post_processed_action_model.input_file)
         post_processed_action_model.predicates = action_model.predicates
         post_processed_action_model.operators = [Operator(op.operator_name, op.parameters,
                                                           eff_neg_cert={p for p in op.eff_neg_cert},
@@ -206,7 +209,7 @@ class Learner:
 
                 op.eff_neg_uncert = {p for p in op.eff_neg_uncert if p.split('(')[0] not in fict_preds}
 
-        post_processed_action_model.predicates = post_processed_action_model.read_predicates('PDDL/domain_input.pddl_clean')
+        post_processed_action_model.predicates = post_processed_action_model.read_predicates(post_processed_action_model.input_file)
 
         return post_processed_action_model
 
