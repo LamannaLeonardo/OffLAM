@@ -2,6 +2,7 @@ import shutil
 import sys
 from shutil import copyfile
 from timeit import default_timer
+from typing import List
 
 import Configuration
 from OffLAM.Action import Action
@@ -11,7 +12,7 @@ from Util.generate_dataframe import save_dataframe
 from Util.plot_results import plot_overall_prec_recall
 
 
-def learn_from_traces(traces, trace_names, greedy=False):
+def learn_from_traces(l, traces, trace_names, greedy=False):
     learning_in_progress = True
 
     prev_cert_size = 0
@@ -40,7 +41,7 @@ def learn_from_traces(traces, trace_names, greedy=False):
     return traces
 
 
-def check_inconsistency(traces):
+def check_inconsistency(l, traces):
     inconsistent_preds = set()
     for trace in traces:
         for k, obs in enumerate(trace.observations):
@@ -62,7 +63,7 @@ def check_inconsistency(traces):
 
 
 # TODO: move this in action model class
-def replace_predicate(old_preds):
+def replace_predicate(l, old_preds):
 
     # Replace predicate in predicate list
     predicates_old = [p for p in l.action_model.predicates if p.split('(')[0] in old_preds]
@@ -179,7 +180,7 @@ def replace_predicate(old_preds):
 
 
 # Split only negative atoms
-def fill_fictitious(filled_traces):
+def fill_fictitious(l, filled_traces):
     trace_modified = False
     for k, trace in enumerate(filled_traces):
 
@@ -218,7 +219,7 @@ def fill_fictitious(filled_traces):
                             filled_traces[v].rename_pred(neg_pred_names, neg_split_names)
 
                         # Replace predicate in the planning domain with fictitious predicates
-                        replace_predicate(neg_pred_names)
+                        replace_predicate(l, neg_pred_names)
 
                         for neg_pred_name in neg_pred_names:
 
@@ -238,6 +239,55 @@ def fill_fictitious(filled_traces):
                         adding_fict_preds = False
 
     return trace_modified, k
+
+
+def learn(domain_path: str,
+          trace_paths: List[str],
+          online_eval: bool = False):
+
+    now = default_timer()
+
+    l = Learner(input_domain_path=domain_path)
+
+    traces = [l.parse_trace(t) for t in trace_paths]
+    [t.set_objects(l.action_model) for t in traces]
+
+    filled_traces = learn_from_traces(l, traces, trace_paths, greedy=True)
+
+    trace_modified = True
+    while trace_modified:
+        start = default_timer()
+        trace_modified, trace_idx = fill_fictitious(l, filled_traces)
+        print(f'Time for filling (forward): {default_timer() - start}')
+
+        start = default_timer()
+        filled_traces = learn_from_traces(l, filled_traces, trace_paths, greedy=True)
+        print(f'Time for learning: {default_timer() - start}')
+
+        start = default_timer()
+        filled_traces = check_inconsistency(l, filled_traces)
+        print(f'Time for checking consistency: {default_timer() - start}')
+
+    # Post process action model in order to remove fictitious predicates
+    post_processed_action_model = l.post_process_action_model(l.action_model)
+
+    post_processed_action_model.write('PDDL/domain_learned.pddl', eff_pos_uncertain=False, eff_neg_uncertain=False)
+
+    print('\n\n')
+    print(f'Number of processed traces: {len(traces)}')
+    print(f'Total CPU time: {default_timer() - now}')
+
+    if online_eval:
+        l.eval_log('PDDL/domain_learned.pddl')
+
+    with open('PDDL/domain_learned.pddl', 'r') as f:
+        model = f.read()
+
+    # Clean PDDL files
+    shutil.rmtree("PDDL")
+
+    return model
+
 
 
 if __name__ == "__main__":
@@ -291,68 +341,34 @@ if __name__ == "__main__":
                 print("Creation of the directory %s is failed" % path_logs)
 
             log_file_path = "{}/log".format(path_logs)
-            log_file = open(log_file_path, "w")
 
             print("Running OffLAM...")
 
-            now = default_timer()
-
             old_stdout = sys.stdout
 
+            # log_file_path = f"{path_logs}/log"
+            log_file = open(log_file_path, "w")
             if not Configuration.DEBUG:
                 print(f'Standard output redirected to {log_file_path}')
                 sys.stdout = log_file
 
-            l = Learner()
-
-            traces = [l.parse_trace(t) for t in trace_names]
-            [t.set_objects(l.action_model) for t in traces]
-
-            filled_traces = learn_from_traces(traces, trace_names, greedy=True)
-
-            trace_modified = True
-            while trace_modified:
-
-                start = default_timer()
-                trace_modified, trace_idx = fill_fictitious(filled_traces)
-                print(f'Time for filling (forward): {default_timer() - start}')
-
-                start = default_timer()
-                filled_traces = learn_from_traces(filled_traces, trace_names, greedy=True)
-                print(f'Time for learning: {default_timer() - start}')
-
-                start = default_timer()
-                filled_traces = check_inconsistency(filled_traces)
-                print(f'Time for checking consistency: {default_timer() - start}')
-
-            # Store a copy of the learned domain
-            shutil.copyfile("PDDL/domain_learned.pddl", os.path.join(path_logs, "domain_learned.pddl"))
-            shutil.copyfile("PDDL/domain_learned.pddl", "PDDL/domain_input.pddl")
-
-            # Post process action model in order to remove fictitious predicates
-            post_processed_action_model = l.post_process_action_model(l.action_model)
-
-            post_processed_action_model.write('PDDL/domain_learned.pddl', eff_pos_uncertain=False, eff_neg_uncertain=False)
+            model = learn('PDDL/domain_input.pddl', trace_names, online_eval=True)
 
             if not Configuration.DEBUG:
                 sys.stdout = log_file
 
-            print('\n\n')
-            print(f'Number of processed traces: {len(traces)}')
-            print(f'Total CPU time: {default_timer() - now}')
-
-            shutil.copyfile("PDDL/domain_learned.pddl", os.path.join(path_logs, "domain_learned.pddl"))
-
-            l.eval_log('PDDL/domain_learned.pddl')
+            # Store a copy of the learned domain
+            with open(os.path.join(path_logs, "domain_learned.pddl"), 'w') as f:
+                f.write(model)
+            # shutil.copyfile("PDDL/domain_learned.pddl", os.path.join(path_logs, "domain_learned.pddl"))
+            # shutil.copyfile("PDDL/domain_learned.pddl", "PDDL/domain_input.pddl")  # not used
+            # shutil.copyfile("PDDL/domain_learned.pddl", os.path.join(path_logs, "domain_learned.pddl"))
 
             log_file.close()
 
             sys.stdout = old_stdout
 
             print("End of OffLAM resolution.")
-
-            # Clean PDDL files
-            shutil.rmtree("PDDL")
 
         # Save results dataframe
         save_dataframe(Configuration.MAX_TRACES, Configuration.EXP, run)
