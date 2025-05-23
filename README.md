@@ -53,10 +53,20 @@ For every domain and observability degree considered in the paper, the set of tr
 
 
 ## Custom domain learning
-For running OffLAM on a custom domain (e.g. "testworld"), you need to provide an input domain file `Analysis/Benchmarks/testworld.pddl` and a set of input plan traces with one file for each plan trace in the directory `Analysis/Input traces/testworld/$EXP` where the value of `EXP` can be set in `Configuration.py` (default value corresponds to plan traces with partially observable states). The input planning domain must contain at least the predicates, object types, and operator signatures, an example of (empty) input planning domain is `Analysis/Benchmarks/testworld.pddl`. Examples of input plan traces with partial states can be found in the directory `Analysis/Input traces/testworld/partial_states`, notice that OffLAM can learn a planning domain from plan traces of different environments (e.g. it is possible to learn a planning domain from small environments and exploit the learned domain in large environments). 
+For running OffLAM on a custom domain, you need to provide an input domain file `'path/to/domain.pddl'` and a 
+list of plan trace files `['path/to/trace0', 'path/to/trace1', etc.]`. 
+The input planning domain must contain the predicates, object types, and operator signatures, 
+an example of (empty) input planning domain is `Analysis/Benchmarks/testworld.pddl`.
+Examples of input plan traces with partial states can be found in the directory 
+`Analysis/Input traces/testworld/partial_states`, notice that OffLAM can learn a planning domain from 
+plan traces of different environments (e.g. it is possible to learn a planning domain from small environments 
+and exploit the learned domain in large environments). 
 
-To run OffLAM on the custom domain "testworld" run the command `python test.py -d testworld`
-
+A model can then be learned as follows:
+```
+from main import learn
+model = learn('path/to/domain.pddl', ['path/to/trace0', path/to/trace1'])
+```
 
 ## Citations
 ```
