@@ -401,7 +401,7 @@ class ActionModel:
             for supertype, subtypes in types_hierarchy.items():
                 for k, v in types_hierarchy.items():
                     if k != supertype and k != 'objects' and k in subtypes:
-                        types_hierarchy[supertype] = [v for v in subtypes if v not in types_hierarchy[k]]
+                        types_hierarchy[supertype] = [v for v in types_hierarchy[supertype] if v not in types_hierarchy[k]]
 
             for supertype, subtypes in types_hierarchy.items():
                 subtypes = [t for t in subtypes if t != supertype]
@@ -507,7 +507,7 @@ class ActionModel:
             for supertype, subtypes in types_hierarchy.items():
                 for k, v in types_hierarchy.items():
                     if k != supertype and k != 'objects' and k in subtypes:
-                        types_hierarchy[supertype] = [v for v in subtypes if v not in types_hierarchy[k]]
+                        types_hierarchy[supertype] = [v for v in types_hierarchy[supertype] if v not in types_hierarchy[k]]
 
 
             for supertype, subtypes in types_hierarchy.items():
