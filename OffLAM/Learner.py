@@ -119,6 +119,7 @@ class Learner:
         post_processed_action_model.input_file = action_model.input_file
         # post_processed_action_model.types_hierarchy = post_processed_action_model.read_object_types_hierarchy("PDDL/domain_input.pddl")
         post_processed_action_model.types_hierarchy = post_processed_action_model.read_object_types_hierarchy(post_processed_action_model.input_file)
+        post_processed_action_model.constants = post_processed_action_model.read_constants(post_processed_action_model.input_file)
         post_processed_action_model.predicates = action_model.predicates
         post_processed_action_model.operators = [Operator(op.operator_name, op.parameters,
                                                           eff_neg_cert={p for p in op.eff_neg_cert},
