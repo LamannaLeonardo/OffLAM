@@ -89,6 +89,9 @@ class ActionModel:
     def read_constants(self, f_name):
         with open(f_name, 'r') as f:
             data = f.read().split("\n")
+            
+            if ":constants" not in f.read():
+                return defaultdict(list)
 
             objects_row = [el.replace(")","").strip()
                            for el in re.findall(r":constants.*\(:predicates","++".join(data))[0].replace(":constants","").replace("(:predicates", "").split("++")
