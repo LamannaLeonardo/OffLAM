@@ -17,6 +17,7 @@ class ActionModel:
         self.predicates = None
         self.ground_actions = defaultdict(list)
         self.ground_action_labels = set()
+        self.constants = None
 
         if input_file is not None:
             self.clean_pddl_domain_file(input_file)
