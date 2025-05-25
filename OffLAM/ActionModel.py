@@ -90,7 +90,7 @@ class ActionModel:
         with open(f_name, 'r') as f:
             data = f.read().split("\n")
             
-            if ":constants" not in f.read():
+            if ":constants" not in '\n'.join(data):
                 return defaultdict(list)
 
             objects_row = [el.replace(")","").strip()
